@@ -26,25 +26,27 @@
       const video = document.querySelector("video")
       const button = document.querySelector("button")
 
-      function MediaPlayer(config) {
-        this.media = config.el
-      }
-
-      MediaPlayer.prototype.play = function() {
-        this.media.play()
-      }
-      MediaPlayer.prototype.pause = function() {
-        this.media.pause()
-      }
-
-      const player = new MediaPlayer({el: video})
-
-      button.onclick = function () {
-        if (player.media.paused) {
-          player.play()
-        } else {
-          player.pause()
+      class MediaPlayer {
+        constructor(config) {
+          this.media = config.element
         }
+        play() {
+          this.media.play()
+        }
+        pause() {
+          this.media.pause()
+        }
+        paused() {
+          return this.media.paused
+        }
+      }
+
+      const player = new MediaPlayer({element: video})
+
+      button.onclick = () => {
+        (player.paused())
+          ?player.play()
+          :player.pause()
       } 
             
     </script>
